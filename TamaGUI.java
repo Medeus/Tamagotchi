@@ -7,15 +7,31 @@ public class TamaGUI extends JApplet{
 
 	public void init() {
 
-		final JLabel values = new JLabel();
-		final JLabel world = new JLabel();
-		final JButton eat = new JButton("Eat");
-		final JButton sleep = new JButton("Sleep");
+		final JPanel worldPanel = new JPanel();
+		final JLabel values = new JLabel("something");
+		final JLabel world = new JLabel("Life");
+		final JTextField textLife = new JTextField("This field displays life");
+		
+		final JTextField textEnergy = new JTextField("This field displays energy");
+		
 
-		setLayout(new GridLayout(3,2));
+		add(buttonAdder());
 		add(values);
 		add(world);
-		add(eat);
-		add(sleep);
+		setLayout(new GridLayout(1,4));
+		add(textLife);
+		add(textEnergy);
+	}
+
+	public JPanel buttonAdder() {
+		final JButton eat = new JButton("Energy");
+		final JButton sleep = new JButton("Sleep");
+		final JButton fight = new JButton("Fight");
+		final JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(1,3));
+		buttonPanel.add(eat);
+		buttonPanel.add(sleep);
+		buttonPanel.add(fight);
+		return buttonPanel;
 	}
 }
