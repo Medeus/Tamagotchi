@@ -7,6 +7,7 @@ public class TamaGUI extends JApplet{
 
 	public void init() {
 
+		//CarIcon is temporary - Tamagotchis will be added shortly!
 		CarIcon carIcon = new CarIcon(100);
 		final JPanel worldPanel = new JPanel();
 		final JLabel carLabel = new JLabel(carIcon);
@@ -21,9 +22,12 @@ public class TamaGUI extends JApplet{
 	}
 
 	public JPanel buttonAdder() {
+		//Creating buttons
 		final JButton eat = new JButton("Eat");
 		final JButton sleep = new JButton("Sleep");
 		final JButton fight = new JButton("Fight");
+		
+		//Creating panel for buttons and adding buttons
 		final JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1,3));
 		buttonPanel.add(eat);
