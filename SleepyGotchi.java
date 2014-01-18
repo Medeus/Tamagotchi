@@ -1,15 +1,11 @@
 public class SleepyGotchi extends Tamagotchi {
-    private boolean isAlive = true;
-    private boolean isSleeping = false;
-    private int hunger = 20;
-    private int energy = 10;
 
     public void eat() {
-        if (hunger == 20) {
+        if (hunger == maxStomach) {
             System.out.println("I'm full!");
         }
-        else if (hunger + 5 >= 20) {
-            hunger = 20;
+        else if (hunger + 5 >= maxStomach) {
+            hunger = maxStomach;
         }
         else {
             hunger += 5;

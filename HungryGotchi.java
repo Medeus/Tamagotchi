@@ -1,8 +1,4 @@
 public class HungryGotchi extends Tamagotchi {
-    private boolean isAlive = true;
-    private boolean isSleeping = false;
-    private int hunger = 20;
-    private int energy = 20;
 
     public void eat() {
         if (hunger == 20) {
