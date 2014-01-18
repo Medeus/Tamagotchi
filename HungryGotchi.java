@@ -5,7 +5,7 @@ public class HungryGotchi extends Tamagotchi {
     private int energy = 20;
 
     public void eat() {
-        if (hunger == 25) {
+        if (hunger == 20) {
             System.out.println("I'm full!");
         }
         else {
