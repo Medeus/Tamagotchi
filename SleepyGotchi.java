@@ -8,6 +8,9 @@ public class SleepyGotchi extends Tamagotchi {
         if (hunger == 20) {
             System.out.println("I'm full!");
         }
+        else if (hunger + 5 >= 20) {
+            hunger = 20;
+        }
         else {
             hunger += 5;
         }

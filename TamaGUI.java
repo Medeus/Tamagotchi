@@ -12,10 +12,6 @@ public class TamaGUI extends JApplet{
 		final JLabel carLabel = new JLabel(carIcon);
 		final JTextField textLife = new JTextField("This field displays life");
 		final JTextField textEnergy = new JTextField("This field displays energy");
-		
-
-		
-		
 		setLayout(new BorderLayout());
 		add(worldPanel, BorderLayout.NORTH);
 		worldPanel.add(carLabel);
