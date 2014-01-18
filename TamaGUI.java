@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 public class TamaGUI extends JApplet{
 
+	private String[] buttons = {"Eat", "Sleep", "Fight"};
+
 	public void init() {
 
 		//CarIcon is temporary - Tamagotchis will be added shortly!
@@ -16,23 +18,17 @@ public class TamaGUI extends JApplet{
 		setLayout(new BorderLayout());
 		add(worldPanel, BorderLayout.NORTH);
 		worldPanel.add(carLabel);
-		add(buttonAdder(), BorderLayout.SOUTH);
+		add(buttonMaker(), BorderLayout.SOUTH);
 
 		
 	}
-
-	public JPanel buttonAdder() {
-		//Creating buttons
-		final JButton eat = new JButton("Eat");
-		final JButton sleep = new JButton("Sleep");
-		final JButton fight = new JButton("Fight");
-		
-		//Creating panel for buttons and adding buttons
-		final JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(1,3));
-		buttonPanel.add(eat);
-		buttonPanel.add(sleep);
-		buttonPanel.add(fight);
+	//This method uses a FOR-EACH-LOOP to create and add buttons from StringArray buttons
+	public JPanel buttonMaker() {
+		final JPanel buttonPanel = new JPanel(new GridLayout(1,buttons.length));
+		for(String s : buttons) {
+			JButton btn = new JButton(s);
+			buttonPanel.add(btn);
+		}
 		return buttonPanel;
 	}
 }
