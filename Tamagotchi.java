@@ -40,7 +40,7 @@ public abstract class Tamagotchi{
     }
 
     public void sleep() {
-        if (getEnergy() == 20) {
+        if (energy == 20) {
             System.out.println("I'm not tired!");
         }
         else {
