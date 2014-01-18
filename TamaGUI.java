@@ -10,6 +10,24 @@ public class TamaGUI extends JApplet{
 	private String[] buttons = {"Eat", "Sleep", "Fight"};
 
 	public void init() {
+		try {
+            UIManager.setLookAndFeel(
+            UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (UnsupportedLookAndFeelException e) {
+            System.err.println("Can't use the specified look and feel (System LookAndFeel) on this platform.");
+            System.err.println("Using the default look and feel.");
+        }
+        catch (ClassNotFoundException e) {
+            System.err.println("Couldn't find class for specified look and feel: System LookAndFeel");
+            System.err.println("Did you include the L&F library in the class path?");
+            System.err.println("Using the default look and feel.");
+        }
+        catch (Exception e) {
+            System.err.println("Couldn't get specified look and feel (System LookAndFeel);, for some reason.");
+            System.err.println("Using the default look and feel.");
+            e.printStackTrace();
+        }
 
 		Image image;
 		URL tamagotchiPIC = getClass().getResource("Figurer/YodaDead.JPG");
