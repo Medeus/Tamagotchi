@@ -39,13 +39,7 @@ public abstract class Tamagotchi{
 
     public abstract void fight();
 
-    public abstract int getHunger();
-
-    public abstract int getEnergy();
-
     public abstract boolean getIsSleeping();
-
-    public abstract boolean getIsAlive();
 
     public abstract void setSleeping(boolean state);
 

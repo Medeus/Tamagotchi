@@ -14,14 +14,6 @@ public class SleepyGotchi extends Tamagotchi {
 
     public void fight() {}
 
-    public int getHunger() {
-        return hunger;
-    }
-
-    public int getEnergy() {
-        return energy;
-    }
-
     public boolean getIsSleeping() {
         if (isSleeping = true) {
             System.out.println("Sleeping");
@@ -30,10 +22,6 @@ public class SleepyGotchi extends Tamagotchi {
             System.out.println("I'm awake!");
         }
         return isSleeping;
-    }
-
-    public boolean getIsAlive() {
-        return isAlive;
     }
 
     public void setSleeping(boolean state) {

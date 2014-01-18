@@ -3,7 +3,7 @@ public class Driver {
         Tamagotchi hungry = new HungryGotchi();
         Tamagotchi sleepy = new SleepyGotchi();
 
-        sleepy.sleep();
+        sleepy.sleep(); 
 
         sleepy.getIsSleeping();
         hungry.getIsSleeping();
