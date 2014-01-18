@@ -16,14 +16,27 @@ public abstract class Tamagotchi{
     /If minutes of the hour is 00, 15,30 or 45 hunger and energy decreases.
     */
     public void live() {
-        if (getHunger() == 0) {
-            setAlive(false);
-            System.out.println(this.getClass().getName() + " is now a ghost!");
+        if (isSleeping == false) {
+            if(date.getMinutes() == 00 || date.getMinutes() == 15 || date.getMinutes() == 30 || date.getMinutes() == 45) {
+                hunger--;                      
+                energy--;                      
+            }
+            else if (hunger == 0) {
+                setAlive(false);
+                System.out.println(this.getClass().getName() + " is now a ghost!");
+            }
         }
-        if(date.getMinutes() == 00 || date.getMinutes() == 15 || date.getMinutes() == 30 || date.getMinutes() == 45) {
-            hunger--;                      // decreases hunger
-            energy--;                      // decreases Energy
+        else {
+            if(date.getMinutes() == 00 || date.getMinutes() == 15 || date.getMinutes() == 30 || date.getMinutes() == 45) {
+                hunger--;                      
+                energy++;                      
+            }
+            else if (hunger == 0) {
+                setAlive(false);
+                System.out.println(this.getClass().getName() + " is now a ghost!");
+            }
         }
+        
     }
 
     public void sleep() {
@@ -32,6 +45,7 @@ public abstract class Tamagotchi{
         }
         else {
           setSleeping(true);
+
         }
     }
 
