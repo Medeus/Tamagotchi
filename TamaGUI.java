@@ -1,3 +1,5 @@
+import java.awt.Image;
+import java.net.URL;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -9,15 +11,13 @@ public class TamaGUI extends JApplet{
 
 	public void init() {
 
-		//CarIcon is temporary - Tamagotchis will be added shortly!
-		CarIcon carIcon = new CarIcon(100);
+		Image image;
+		URL tamagotchiPIC = getClass().getResource("Figurer/YodaDead.JPG");
 		final JPanel worldPanel = new JPanel();
-		final JLabel carLabel = new JLabel(carIcon);
-		final JTextField textLife = new JTextField("This field displays life");
-		final JTextField textEnergy = new JTextField("This field displays energy");
+		final JLabel imageLabel = new JLabel(new ImageIcon(tamagotchiPIC));
 		setLayout(new BorderLayout());
 		add(worldPanel, BorderLayout.NORTH);
-		worldPanel.add(carLabel);
+		worldPanel.add(imageLabel);
 		add(buttonMaker(), BorderLayout.SOUTH);
 
 		
