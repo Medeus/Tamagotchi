@@ -1,8 +1,8 @@
 import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
-//import javax.swing.Timer; skal måske bruges
-import java.util.Timer;
+import javax.swing.Timer; 
+//import java.util.Timer;skal måske bruges
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Image;
