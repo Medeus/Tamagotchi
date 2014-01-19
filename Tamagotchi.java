@@ -58,4 +58,6 @@ public abstract class Tamagotchi{
     public abstract void setSleeping(boolean state);
 
     public abstract void setAlive(boolean state);
+
+    public abstract boolean getLifeState();
 }

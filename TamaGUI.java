@@ -4,10 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
+import javax.swing.Timer;
 
 public class TamaGUI extends JApplet{
 
 	private String[] buttons = {"Eat", "Sleep", "Fight"};
+	private URL tamagotchiPIC = getClass().getResource("Figurer/YodaUp.JPG");
+	private YodaGotchi yoda = new YodaGotchi();
+	//private final Timer imageTimer = new Timer();		//Til billedskift hvert sekund
 
 	public void init() {
 		try {
@@ -30,7 +34,24 @@ public class TamaGUI extends JApplet{
         }
 
 		Image image;
-		URL tamagotchiPIC = getClass().getResource("Figurer/YodaDead.JPG");
+		/*
+		Denne kode skulle hjælpe med at lave et billed skift hvert sekend, men er for træt til at finde fejlen!
+
+		imageTimer.schedule( new TimerTask() {
+			public void run() {
+				if (yoda.getLifeState() == true) {
+					if (tamagotchiPIC == getClass().getResource("Figurer/YodaUp.JPG")) {
+						tamagotchiPIC = getClass().getResource("Figurer/YodaDown.JPG");
+						repaint();
+					}
+					else {
+						getClass().getResource("Figurer/YodaDown.JPG");
+						repaint();
+					}
+				}
+			}
+		}, 0, 1000 );
+		*/
 		final JPanel worldPanel = new JPanel();
 		final JLabel imageLabel = new JLabel(new ImageIcon(tamagotchiPIC));
 		setLayout(new BorderLayout());

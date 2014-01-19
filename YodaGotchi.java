@@ -1,4 +1,4 @@
-public class SleepyGotchi extends Tamagotchi {
+public class YodaGotchi extends Tamagotchi {
 
     public void eat() {
         if (hunger == maxStomach) {

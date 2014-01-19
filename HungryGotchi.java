@@ -38,4 +38,9 @@ public class HungryGotchi extends Tamagotchi {
             isAlive = false;
         }
     }
+
+    //used in TamaGUI for the yoda stuff
+    public boolean getLifeState() {
+        return isAlive;
+    }
 }
