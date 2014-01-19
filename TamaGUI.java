@@ -1,7 +1,8 @@
 import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.Timer;
+//import javax.swing.Timer; skal måske bruges
+import java.util.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Image;
@@ -10,8 +11,8 @@ import java.util.*;
 public class TamaGUI extends JApplet implements ChangeListener{
     private ArrayList<JButton> buttonlist = new ArrayList<JButton>();
     private Tamagotchi tamagotchi = new YodaGotchi();
-
-    //private final Timer imageTimer = new Timer();
+    private final Timer imageTimer = new Timer();
+    private URL location = getClass().getResource("Resources/YodaUp.jpg");
 
 	public void init() {
 		try {
@@ -35,31 +36,18 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         setLayout(new BorderLayout());
 
-		/*
-		Denne kode skulle hjælpe med at lave et billed skift hvert sekend, men er for træt til at finde fejlen!
-
 		imageTimer.schedule( new TimerTask() {
 			public void run() {
 				if (tamagotchi.getLifeState() == true) {
-					if (tamagotchiPIC == getClass().getResource("Figurer/YodaUp.JPG")) {
-						tamagotchiPIC = getClass().getResource("Figurer/YodaDown.JPG");
-						repaint();
-					}
-					else {
-						getClass().getResource("Figurer/YodaDown.JPG");
-						repaint();
-					}
+				    changeImage();
 				}
 			}
 		}, 0, 1000 );
-		*/
 
-        URL location = getClass().getResource("Resources/YodaUp.jpg");
-
-        Icon tamagutchiAvatar = new ImageIcon(location);
+        Icon tamagotchiAvatar = new ImageIcon(location);
 
         final JPanel worldPanel = new JPanel();
-        final JLabel imageLabel = new JLabel(tamagutchiAvatar);
+        final JLabel imageLabel = new JLabel(tamagotchiAvatar);
         worldPanel.add(imageLabel);
         add(worldPanel, BorderLayout.NORTH);
 
@@ -107,5 +95,16 @@ public class TamaGUI extends JApplet implements ChangeListener{
     // Not yet implemented. Will be taking care of updating stats. DO NOT REMOVE.
     public void stateChanged(ChangeEvent e) {
 
+    }
+
+    public void changeImage() {
+        if (location.equals(getClass().getResource("Figurer/YodaUp.JPG"))) {
+            location = getClass().getResource("Figurer/YodaDown.JPG");
+            repaint();
+        }
+        else {
+            location = getClass().getResource("Figurer/YodaDown.JPG");
+            repaint();
+        }
     }
 }
