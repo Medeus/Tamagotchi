@@ -73,6 +73,11 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         Timer imageUpdater = new Timer(500, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                if (tamagotchi.getLifeState() == true) {
+                    changeImage();
+                    worldPanel.repaint();
+                }
+                
             }
         });
 
@@ -134,5 +139,8 @@ public class TamaGUI extends JApplet implements ChangeListener{
     }
 
     public void changeImage() {
+        if (location.equals(getClass().getResource("Resources/YodaUp.jpg"))) {
+            location = getClass().getResource("Resources/YodaDown.jpg");
+        }
     }
 }
