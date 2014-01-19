@@ -1,8 +1,9 @@
 import java.net.URL;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.Timer; 
-//import java.util.Timer;skal måske bruges
+import javax.swing.Timer;
+import java.io.*;
+//import java.util.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Image;
@@ -10,12 +11,13 @@ import java.util.*;
 
 public class TamaGUI extends JApplet implements ChangeListener{
     private ArrayList<JButton> buttonlist = new ArrayList<JButton>();
+    private ArrayList<JLabel> statslist = new ArrayList<JLabel>();
+
     private Tamagotchi tamagotchi = new YodaGotchi();
-    private final Timer imageTimer = new Timer();
     private URL location = getClass().getResource("Resources/YodaUp.jpg");
 
-	public void init() {
-		try {
+    public void init() {
+        try {
             UIManager.setLookAndFeel(
             UIManager.getSystemLookAndFeelClassName());
         }
@@ -36,20 +38,18 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         setLayout(new BorderLayout());
 
-		imageTimer.schedule( new TimerTask() {
-			public void run() {
-				if (tamagotchi.getLifeState() == true) {
-				    changeImage();
-				}
-			}
-		}, 0, 1000 );
+        statsMaker("Hunger: 20");
+        statsMaker("Energy: 20");
 
-        Icon tamagotchiAvatar = new ImageIcon(location);
+        add(panelStatsMaker(), BorderLayout.NORTH);
+
+        ImageIcon tamagotchiAvatar = new ImageIcon(location);
+
 
         final JPanel worldPanel = new JPanel();
         final JLabel imageLabel = new JLabel(tamagotchiAvatar);
         worldPanel.add(imageLabel);
-        add(worldPanel, BorderLayout.NORTH);
+        add(worldPanel, BorderLayout.CENTER);
 
         buttonMaker("eat", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -59,18 +59,25 @@ public class TamaGUI extends JApplet implements ChangeListener{
         
         buttonMaker("sleep", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                tamagotchi.eat();
+                tamagotchi.sleep();
             }
         });
 
         buttonMaker("fight", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                tamagotchi.sleep();
+                tamagotchi.fight();
             }
         });
 
-        add(panelMaker(), BorderLayout.SOUTH);	
-	}
+        add(panelButtonMaker(), BorderLayout.SOUTH);
+
+        Timer imageUpdater = new Timer(500, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+            }
+        });
+
+        imageUpdater.start();      
+    }
 
     //Creates a button and adds an actionlistener to it.
     public void buttonMaker(String buttonName, ActionListener actionListener) {
@@ -81,15 +88,44 @@ public class TamaGUI extends JApplet implements ChangeListener{
         buttonlist.add(button);
     }
 
-    //Adds buttons from buttonlist to a panel.
-    public JPanel panelMaker() {
-        JPanel buttonPanel = new JPanel(new GridLayout(1,buttonlist.size()));
+    /* Adds buttons from buttonlist to a panel.
+    public JPanel panelMaker(T t, ArrayList<T> list) {
+        JPanel panel = new JPanel(new GridLayout(1, list.size()));
 
-        for (JButton button : buttonlist) {
-            buttonPanel.add(button);
+        for (T t : list) {
+            list.add(t);
         }
 
-        return buttonPanel;
+        return panel;
+    }
+    */
+
+    //Adds buttons from buttonlist to a panel.
+    public JPanel panelButtonMaker() {
+        JPanel panel = new JPanel(new GridLayout(1, buttonlist.size()));
+
+        for (JButton button : buttonlist) {
+            panel.add(button);
+        }
+
+        return panel;
+    }
+
+    //Adds buttons from buttonlist to a panel.
+    public JPanel panelStatsMaker() {
+        JPanel panel = new JPanel(new GridLayout(1, statslist.size()));
+
+        for (JLabel jlabel : statslist) {
+            panel.add(jlabel);
+        }
+
+        return panel;
+    }
+
+    public void statsMaker(String statName) {
+        JLabel jlabel = new JLabel(statName);
+
+        statslist.add(jlabel);
     }
 
     // Not yet implemented. Will be taking care of updating stats. DO NOT REMOVE.
@@ -98,13 +134,5 @@ public class TamaGUI extends JApplet implements ChangeListener{
     }
 
     public void changeImage() {
-        if (location.equals(getClass().getResource("Figurer/YodaUp.JPG"))) {
-            location = getClass().getResource("Figurer/YodaDown.JPG");
-            repaint();
-        }
-        else {
-            location = getClass().getResource("Figurer/YodaDown.JPG");
-            repaint();
-        }
     }
 }
