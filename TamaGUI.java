@@ -10,8 +10,8 @@ import java.awt.Image;
 import java.util.*;
 
 public class TamaGUI extends JApplet implements ChangeListener{
-    private ArrayList<JButton> buttonlist = new ArrayList<JButton>();
-    private ArrayList<JLabel> statslist = new ArrayList<JLabel>();
+    private LinkedList<JButton> buttonlist = new LinkedList<JButton>();
+    private LinkedList<JLabel> statslist = new LinkedList<JLabel>();
 
     private Tamagotchi tamagotchi = new YodaGotchi();
     private URL location = getClass().getResource("Resources/YodaUp.jpg");
