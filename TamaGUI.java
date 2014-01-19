@@ -1,17 +1,17 @@
-import java.awt.Image;
 import java.net.URL;
 import javax.swing.*;
-import java.awt.*;
-import java.util.*;
-import java.awt.event.*;
+import javax.swing.event.*;
 import javax.swing.Timer;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.Image;
+import java.util.*;
 
-public class TamaGUI extends JApplet{
+public class TamaGUI extends JApplet implements ChangeListener{
+    private ArrayList<JButton> buttonlist = new ArrayList<JButton>();
+    private Tamagotchi tamagotchi = new YodaGotchi();
 
-	private String[] buttons = {"Eat", "Sleep", "Fight"};
-	private URL tamagotchiPIC = getClass().getResource("Figurer/YodaUp.JPG");
-	private YodaGotchi yoda = new YodaGotchi();
-	//private final Timer imageTimer = new Timer();		//Til billedskift hvert sekund
+    //private final Timer imageTimer = new Timer();
 
 	public void init() {
 		try {
@@ -33,13 +33,14 @@ public class TamaGUI extends JApplet{
             e.printStackTrace();
         }
 
-		Image image;
+        setLayout(new BorderLayout());
+
 		/*
 		Denne kode skulle hjælpe med at lave et billed skift hvert sekend, men er for træt til at finde fejlen!
 
 		imageTimer.schedule( new TimerTask() {
 			public void run() {
-				if (yoda.getLifeState() == true) {
+				if (tamagotchi.getLifeState() == true) {
 					if (tamagotchiPIC == getClass().getResource("Figurer/YodaUp.JPG")) {
 						tamagotchiPIC = getClass().getResource("Figurer/YodaDown.JPG");
 						repaint();
@@ -52,22 +53,59 @@ public class TamaGUI extends JApplet{
 			}
 		}, 0, 1000 );
 		*/
-		final JPanel worldPanel = new JPanel();
-		final JLabel imageLabel = new JLabel(new ImageIcon(tamagotchiPIC));
-		setLayout(new BorderLayout());
-		add(worldPanel, BorderLayout.NORTH);
-		worldPanel.add(imageLabel);
-		add(buttonMaker(), BorderLayout.SOUTH);
 
-		
+        URL location = getClass().getResource("Resources/YodaUp.jpg");
+
+        Icon tamagutchiAvatar = new ImageIcon(location);
+
+        final JPanel worldPanel = new JPanel();
+        final JLabel imageLabel = new JLabel(tamagutchiAvatar);
+        worldPanel.add(imageLabel);
+        add(worldPanel, BorderLayout.NORTH);
+
+        buttonMaker("eat", new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                tamagotchi.eat();
+            }
+        });
+        
+        buttonMaker("sleep", new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                tamagotchi.eat();
+            }
+        });
+
+        buttonMaker("fight", new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                tamagotchi.sleep();
+            }
+        });
+
+        add(panelMaker(), BorderLayout.SOUTH);	
 	}
-	//This method uses a FOR-EACH-LOOP to create and add buttons from StringArray buttons
-	public JPanel buttonMaker() {
-		final JPanel buttonPanel = new JPanel(new GridLayout(1,buttons.length));
-		for(String s : buttons) {
-			JButton btn = new JButton(s);
-			buttonPanel.add(btn);
-		}
-		return buttonPanel;
-	}
+
+    //Creates a button and adds an actionlistener to it.
+    public void buttonMaker(String buttonName, ActionListener actionListener) {
+        JButton button = new JButton(buttonName);
+
+        button.addActionListener(actionListener);
+
+        buttonlist.add(button);
+    }
+
+    //Adds buttons from buttonlist to a panel.
+    public JPanel panelMaker() {
+        JPanel buttonPanel = new JPanel(new GridLayout(1,buttonlist.size()));
+
+        for (JButton button : buttonlist) {
+            buttonPanel.add(button);
+        }
+
+        return buttonPanel;
+    }
+
+    // Not yet implemented. Will be taking care of updating stats. DO NOT REMOVE.
+    public void stateChanged(ChangeEvent e) {
+
+    }
 }
