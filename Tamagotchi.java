@@ -11,7 +11,20 @@ public abstract class Tamagotchi{
     protected int energyIncrease = 2;
     protected int maxHunger = 20;         
     protected int maxEnergy = 40;         
-    private Date date = new Date();
+    protected Date date = new Date();
+    protected ChangeListener listener = new ChangeListener();
+
+    public void addChangeListener(ChangeListener listener) {
+        this.listener = listener;
+    }
+
+    private void change() {
+        listener.stateChanged(new ChangeEvent(this));
+    }
+
+    public Boolean getLifeState() {
+        return lifeState;
+    }
 
     /*
     /If hunger is 0, alive is set to false
@@ -20,21 +33,23 @@ public abstract class Tamagotchi{
     public void live() {
         if (hunger <= 0) {
             lifeState = false;
-            System.out.println(this.getClass().getName() + " is now a ghost!");
         }
         if (isSleeping == false) {
             if(date.getMinutes() == 00 || date.getMinutes() == 15 || date.getMinutes() == 30 || date.getMinutes() == 45) {
                 hunger -= hungerDecrease;                      
-                energy -= energyDecrease;                      
+                energy -= energyDecrease;
+                change();                      
             }
         }
         else if (isSleeping == true && energy >= maxEnergy) {
             isSleeping = false;
             energy = maxEnergy;
+            change();
         }
         else if(date.getMinutes() == 00 || date.getMinutes() == 15 || date.getMinutes() == 30 || date.getMinutes() == 45) {
             hunger -= hungerDecrease;                      
-            energy += energyIncrease;                      
+            energy += energyIncrease;
+            change();                      
         }
     }
 
@@ -48,11 +63,9 @@ public abstract class Tamagotchi{
         }
     }
 
-    public Boolean getLifeState() {
-        return lifeState;
-    }
-
+    // Needs to call "change()" in it's implementation.
     public abstract void eat();
 
+    // Needs to call "change()" in it's implementation.
     public abstract void fight();
 }
