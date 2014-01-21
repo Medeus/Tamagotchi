@@ -1,4 +1,5 @@
 import java.util.Date;
+import javax.swing.event.*;
 
 public abstract class Tamagotchi{
     protected boolean lifeState = true;
@@ -12,7 +13,7 @@ public abstract class Tamagotchi{
     protected int maxHunger = 20;         
     protected int maxEnergy = 40;         
     protected Date date = new Date();
-    protected ChangeListener listener = new ChangeListener();
+    protected ChangeListener listener;
 
     public void addChangeListener(ChangeListener listener) {
         this.listener = listener;
