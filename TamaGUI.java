@@ -12,6 +12,8 @@ import java.util.*;
 public class TamaGUI extends JApplet implements ChangeListener{
     private LinkedList<JButton> buttonlist = new LinkedList<JButton>();
     private LinkedList<JLabel> statslist = new LinkedList<JLabel>();
+    private LinkedList<HungerEnergyRect> barList = new LinkedList<HungerEnergyRect>();
+    private static CollectionIcon ci = new CollectionIcon();
 
     private Tamagotchi tamagotchi = new YodaGotchi();
     private URL location = getClass().getResource("Resources/YodaUp.jpg");
@@ -40,17 +42,17 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         statsMaker("Hunger: 20");
         statsMaker("Energy: 20");
+        final JLabel barLabel = new JLabel(ci);
 
         add(panelStatsMaker(), BorderLayout.NORTH);
 
         ImageIcon tamagotchiAvatar = new ImageIcon(location);
 
-
         final JPanel worldPanel = new JPanel();
         final JLabel imageLabel = new JLabel(tamagotchiAvatar);
         worldPanel.add(imageLabel);
+        worldPanel.add(barLabel, BorderLayout.SOUTH);
         add(worldPanel, BorderLayout.CENTER);
-
         buttonMaker("eat", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 tamagotchi.eat();
@@ -115,6 +117,20 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         return panel;
     }
+
+    /*public JLabel labelBarMaker() {
+        JLabel label = new JLabel();
+
+        for (int i=0; i < 3; i++){
+            HungerEnergyRect bar = new HungerEnergyRect(10,10,Color.RED);
+            barList.add(bar);
+        }
+
+        for (HungerEnergyRect e : barList) {
+            label.add(e);
+        }
+        return label;
+    }*/
 
     //Adds buttons from buttonlist to a panel.
     public JPanel panelStatsMaker() {
