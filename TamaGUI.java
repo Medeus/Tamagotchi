@@ -39,10 +39,9 @@ public class TamaGUI extends JApplet implements ChangeListener{
         }
 
         setLayout(new BorderLayout());
-
-        statsMaker("Hunger: 20");
-        statsMaker("Energy: 20");
-        final JLabel barLabel = new JLabel(ci);
+        statsMaker("Hunger: 20", new JLabel(ci));
+        statsMaker("Energy: 20", new JLabel(ci));
+        
 
         add(panelStatsMaker(), BorderLayout.NORTH);
 
@@ -51,7 +50,6 @@ public class TamaGUI extends JApplet implements ChangeListener{
         final JPanel worldPanel = new JPanel();
         final JLabel imageLabel = new JLabel(tamagotchiAvatar);
         worldPanel.add(imageLabel);
-        worldPanel.add(barLabel, BorderLayout.SOUTH);
         add(worldPanel, BorderLayout.CENTER);
         buttonMaker("eat", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -118,20 +116,6 @@ public class TamaGUI extends JApplet implements ChangeListener{
         return panel;
     }
 
-    /*public JLabel labelBarMaker() {
-        JLabel label = new JLabel();
-
-        for (int i=0; i < 3; i++){
-            HungerEnergyRect bar = new HungerEnergyRect(10,10,Color.RED);
-            barList.add(bar);
-        }
-
-        for (HungerEnergyRect e : barList) {
-            label.add(e);
-        }
-        return label;
-    }*/
-
     //Adds buttons from buttonlist to a panel.
     public JPanel panelStatsMaker() {
         JPanel panel = new JPanel(new GridLayout(1, statslist.size()));
@@ -143,10 +127,11 @@ public class TamaGUI extends JApplet implements ChangeListener{
         return panel;
     }
 
-    public void statsMaker(String statName) {
+    public void statsMaker(String statName, JLabel k) {
         JLabel jlabel = new JLabel(statName);
 
         statslist.add(jlabel);
+        statslist.add(k);
     }
 
     // Not yet implemented. Will be taking care of updating stats. DO NOT REMOVE.
