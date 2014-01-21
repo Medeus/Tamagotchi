@@ -27,6 +27,14 @@ public abstract class Tamagotchi{
         return lifeState;
     }
 
+    public int getHunger() {
+        return hunger;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
     /*
     /If hunger is 0, alive is set to false
     /If minutes of the hour is 00, 15, 30 or 45 hunger and energy decreases.

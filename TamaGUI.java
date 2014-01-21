@@ -3,7 +3,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.Timer;
 import java.io.*;
-//import java.util.Timer;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Image;
@@ -11,11 +10,12 @@ import java.util.*;
 
 public class TamaGUI extends JApplet implements ChangeListener{
     private LinkedList<JButton> buttonlist = new LinkedList<JButton>();
-    private LinkedList<JLabel> statslist = new LinkedList<JLabel>();
-    private LinkedList<HungerEnergyRect> barList = new LinkedList<HungerEnergyRect>();
-    private static CollectionIcon ci = new CollectionIcon();
-
+    private LinkedList<JPanel> panellist = new LinkedList<JPanel>();
+    private LinkedList<JLabel> statsnamelist = new LinkedList<JLabel>();
+    private LinkedList<JLabel> statsnumberlist = new LinkedList<JLabel>();
+    private static CollectionIcon statsboxes = new CollectionIcon();
     private Tamagotchi tamagotchi = new YodaGotchi();
+
     private URL location = getClass().getResource("Resources/YodaUp.jpg");
 
     public void init() {
@@ -39,9 +39,10 @@ public class TamaGUI extends JApplet implements ChangeListener{
         }
 
         setLayout(new BorderLayout());
-        statsMaker("Hunger: 20", new JLabel(ci));
-        statsMaker("Energy: 20", new JLabel(ci));
-        
+        statsNameLabelMaker("Hunger");
+        statsNumberLabelMaker(tamagotchi.getHunger());
+        statsNameLabelMaker("Energy");
+        statsNumberLabelMaker(tamagotchi.getEnergy());
 
         add(panelStatsMaker(), BorderLayout.NORTH);
 
@@ -93,18 +94,6 @@ public class TamaGUI extends JApplet implements ChangeListener{
         buttonlist.add(button);
     }
 
-    /* Adds buttons from buttonlist to a panel.
-    public JPanel panelMaker(T t, ArrayList<T> list) {
-        JPanel panel = new JPanel(new GridLayout(1, list.size()));
-
-        for (T t : list) {
-            list.add(t);
-        }
-
-        return panel;
-    }
-    */
-
     //Adds buttons from buttonlist to a panel.
     public JPanel panelButtonMaker() {
         JPanel panel = new JPanel(new GridLayout(1, buttonlist.size()));
@@ -116,27 +105,40 @@ public class TamaGUI extends JApplet implements ChangeListener{
         return panel;
     }
 
-    //Adds buttons from buttonlist to a panel.
-    public JPanel panelStatsMaker() {
-        JPanel panel = new JPanel(new GridLayout(1, statslist.size()));
-
-        for (JLabel jlabel : statslist) {
-            panel.add(jlabel);
-        }
-
-        return panel;
+    public void statsNameLabelMaker(String labelContent) {
+        JLabel jlabel = new JLabel(labelContent);
+        statsnamelist.add(jlabel);
     }
 
-    public void statsMaker(String statName, JLabel k) {
-        JLabel jlabel = new JLabel(statName);
+    public void statsNumberLabelMaker(int labelContent) {
+        JLabel jlabel = new JLabel(Integer.toString(labelContent));
+        statsnumberlist.add(jlabel);
+    }
 
-        statslist.add(jlabel);
-        statslist.add(k);
+    public JLabel statsBoxesLabelMaker(CollectionIcon labelContent) {
+        return new JLabel(labelContent);
+    }
+
+    //Adds stats labels to panels and adds them to the applet.
+    public JPanel panelStatsMaker() {
+        JPanel mainpanel = new JPanel();
+
+        for (int i=0; i < statsnamelist.size(); i++) {
+            JPanel panel = new JPanel();
+            panel.add(statsnamelist.get(i));
+            panel.add(statsnumberlist.get(i));
+            panel.add(statsBoxesLabelMaker(statsboxes));
+            mainpanel.add(panel);
+        }
+
+        return mainpanel;
     }
 
     // Not yet implemented. Will be taking care of updating stats. DO NOT REMOVE.
     public void stateChanged(ChangeEvent e) {
+        for (JLabel jlabel : statsnumberlist) {
 
+        }
     }
 
     public void changeImage() {
