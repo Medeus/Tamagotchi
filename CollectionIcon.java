@@ -8,11 +8,11 @@ public class CollectionIcon implements Icon {
 
 	public CollectionIcon(){
 		iconList = new ArrayList<Icon>();
-		for (int i=0; i<10; i++) {
-			HungerEnergyRect herRED = new HungerEnergyRect(10,10,Color.RED);
-			HungerEnergyRect herSPACE = new HungerEnergyRect(10,2,Color.WHITE);
+		for (int i=0; i<100; i++) {
+			HungerEnergyRect herRED = new HungerEnergyRect(10,1,Color.GREEN);
+			//HungerEnergyRect herSPACE = new HungerEnergyRect(10,1,Color.WHITE);
 			iconList.add(herRED);
-			iconList.add(herSPACE);
+			//iconList.add(herSPACE);
 		}
 	}
 
