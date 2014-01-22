@@ -63,9 +63,9 @@ public abstract class Tamagotchi{
     }
 
     public void sleep() {
+        energy = maxEnergy;
         if (energy >= maxEnergy) {
             System.out.println("I'm not tired!");
-            energy = maxEnergy;
         }
         else {
           isSleeping = true;
