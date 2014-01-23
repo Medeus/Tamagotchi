@@ -86,7 +86,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
     }
 
     //Creates a button and adds an actionlistener to it.
-    public void buttonMaker(String buttonName, ActionListener actionListener) {
+    private void buttonMaker(String buttonName, ActionListener actionListener) {
         JButton button = new JButton(buttonName);
 
         button.addActionListener(actionListener);
@@ -95,7 +95,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
     }
 
     //Adds buttons from buttonlist to a panel.
-    public JPanel panelButtonMaker() {
+    private JPanel panelButtonMaker() {
         JPanel panel = new JPanel(new GridLayout(1, buttonlist.size()));
 
         for (JButton button : buttonlist) {
@@ -105,22 +105,22 @@ public class TamaGUI extends JApplet implements ChangeListener{
         return panel;
     }
 
-    public void statsNameLabelMaker(String labelContent) {
+    private void statsNameLabelMaker(String labelContent) {
         JLabel jlabel = new JLabel(labelContent);
         statsnamelist.add(jlabel);
     }
 
-    public void statsNumberLabelMaker(int labelContent) {
+    private void statsNumberLabelMaker(int labelContent) {
         JLabel jlabel = new JLabel(Integer.toString(labelContent));
         statsnumberlist.add(jlabel);
     }
 
-    public JLabel statsBoxesLabelMaker(CollectionIcon labelContent) {
+    private JLabel statsBoxesLabelMaker(CollectionIcon labelContent) {
         return new JLabel(labelContent);
     }
 
     //Adds stats labels to panels and adds them to the applet.
-    public JPanel panelStatsMaker() {
+    private JPanel panelStatsMaker() {
         JPanel mainpanel = new JPanel();
 
         for (int i=0; i < statsnamelist.size(); i++) {
@@ -142,8 +142,8 @@ public class TamaGUI extends JApplet implements ChangeListener{
     }
 
     public void changeImage() {
-        if (location.equals(getClass().getResource("Resources/YodaUp.jpg"))) {
-            location = getClass().getResource("Resources/YodaDown.jpg");
+        if (location.equals(getClass().getResource("Resources/Figurer/YodaUp.jpg"))) {
+            location = getClass().getResource("Resources/Figurer/YodaDown.jpg");
         }
     }
 }
