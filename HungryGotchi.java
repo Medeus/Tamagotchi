@@ -1,9 +1,6 @@
 public class HungryGotchi extends Tamagotchi {
     public void eat() {
-        if (hunger == maxHunger) {
-            System.out.println("I'm full!");
-        }
-        else if (hunger + 5 >= maxHunger) {
+        if (hunger >= maxHunger) {
             hunger = maxHunger;
         }
         else {

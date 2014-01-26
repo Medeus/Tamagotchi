@@ -19,7 +19,7 @@ public abstract class Tamagotchi{
         this.listener = listener;
     }
 
-    private void change() {
+    protected void change() {
         listener.stateChanged(new ChangeEvent(this));
     }
 
@@ -65,7 +65,6 @@ public abstract class Tamagotchi{
     public void sleep() {
         if (energy >= maxEnergy) {
             energy = maxEnergy;
-            System.out.println("I'm not tired!");
         }
         else {
             isSleeping = true;

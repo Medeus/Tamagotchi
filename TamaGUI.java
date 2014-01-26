@@ -16,7 +16,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
     private static CollectionIcon statsboxes = new CollectionIcon();
     private Tamagotchi tamagotchi = new YodaGotchi();
 
-    private URL location = getClass().getResource("Resources/YodaUp.jpg");
+    private URL location = getClass().getResource("Resources/Images/YodaUp.jpg");
 
     public void init() {
         try {
@@ -38,6 +38,8 @@ public class TamaGUI extends JApplet implements ChangeListener{
             e.printStackTrace();
         }
 
+        tamagotchi.addChangeListener(this);
+
         setLayout(new BorderLayout());
         statsNameLabelMaker("Hunger");
         statsNumberLabelMaker(tamagotchi.getHunger());
@@ -52,6 +54,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
         final JLabel imageLabel = new JLabel(tamagotchiAvatar);
         worldPanel.add(imageLabel);
         add(worldPanel, BorderLayout.CENTER);
+
         buttonMaker("eat", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 tamagotchi.eat();
@@ -71,7 +74,18 @@ public class TamaGUI extends JApplet implements ChangeListener{
         });
 
         add(panelButtonMaker(), BorderLayout.SOUTH);
+        
+        // Not yet implemented. Will take care of the life of the tamagotchi.
+        /*
+        Timer live = new Timer(500, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                tamagotchi.live();
+                
+            }
+        });
+        */
 
+        /*
         Timer imageUpdater = new Timer(500, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (tamagotchi.getLifeState() == true) {
@@ -81,8 +95,9 @@ public class TamaGUI extends JApplet implements ChangeListener{
                 
             }
         });
-
-        imageUpdater.start();      
+        
+        imageUpdater.start();
+        */      
     }
 
     //Creates a button and adds an actionlistener to it.
@@ -134,11 +149,9 @@ public class TamaGUI extends JApplet implements ChangeListener{
         return mainpanel;
     }
 
-    // Not yet implemented. Will be taking care of updating stats. DO NOT REMOVE.
     public void stateChanged(ChangeEvent e) {
-        for (JLabel jlabel : statsnumberlist) {
-
-        }
+        statsnumberlist.get(0).setText(Integer.toString(tamagotchi.getHunger()));
+        statsnumberlist.get(1).setText(Integer.toString(tamagotchi.getEnergy()));
     }
 
     public void changeImage() {
