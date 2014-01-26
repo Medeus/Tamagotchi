@@ -7,7 +7,6 @@ public class YodaGotchi extends Tamagotchi {
             hunger += 5;
         }
         change();
-        System.out.println(hunger);
     }
 
     public void fight() {}

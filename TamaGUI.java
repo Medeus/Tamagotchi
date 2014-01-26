@@ -13,7 +13,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
     private LinkedList<JPanel> panellist = new LinkedList<JPanel>();
     private LinkedList<JLabel> statsnamelist = new LinkedList<JLabel>();
     private LinkedList<JLabel> statsnumberlist = new LinkedList<JLabel>();
-    private static CollectionIcon statsboxes = new CollectionIcon();
+    private LinkedList<JLabel> statsBarList = new LinkedList<JLabel>();
     private Tamagotchi tamagotchi = new YodaGotchi();
 
     private URL location = getClass().getResource("Resources/Images/YodaUp.jpg");
@@ -43,8 +43,10 @@ public class TamaGUI extends JApplet implements ChangeListener{
         setLayout(new BorderLayout());
         statsNameLabelMaker("Hunger");
         statsNumberLabelMaker(tamagotchi.getHunger());
+        statsBoxesLabelMaker();
         statsNameLabelMaker("Energy");
         statsNumberLabelMaker(tamagotchi.getEnergy());
+        statsBoxesLabelMaker();
 
         add(panelStatsMaker(), BorderLayout.NORTH);
 
@@ -76,14 +78,14 @@ public class TamaGUI extends JApplet implements ChangeListener{
         add(panelButtonMaker(), BorderLayout.SOUTH);
         
         // Not yet implemented. Will take care of the life of the tamagotchi.
-        /*
+        
         Timer live = new Timer(500, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 tamagotchi.live();
                 
             }
         });
-        */
+        
 
         /*
         Timer imageUpdater = new Timer(500, new ActionListener() {
@@ -130,8 +132,10 @@ public class TamaGUI extends JApplet implements ChangeListener{
         statsnumberlist.add(jlabel);
     }
 
-    private JLabel statsBoxesLabelMaker(CollectionIcon labelContent) {
-        return new JLabel(labelContent);
+    private void statsBoxesLabelMaker() {
+        JLabel statsBar = new JLabel(new CollectionIcon());
+
+        statsBarList.add(statsBar);
     }
 
     //Adds stats labels to panels and adds them to the applet.
@@ -142,7 +146,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
             JPanel panel = new JPanel();
             panel.add(statsnamelist.get(i));
             panel.add(statsnumberlist.get(i));
-            panel.add(statsBoxesLabelMaker(statsboxes));
+            panel.add(statsBarList.get(i));
             mainpanel.add(panel);
         }
 
