@@ -79,7 +79,7 @@ public abstract class Tamagotchi{
             isSleeping = true;
         }
 
-        if (now.getMinutes() == 00 || now.getMinutes() == 15 || now.getMinutes() == 27 || now.getMinutes() == 28) {
+        if (now.getMinutes() == 00 || now.getMinutes() == 15 || now.getMinutes() == 30 || now.getMinutes() == 45) {
             if (isSleeping == false){
                 hunger -= hungerDecrease;                      
                 energy -= energyDecrease;
