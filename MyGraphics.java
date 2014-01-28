@@ -19,6 +19,6 @@ public class MyGraphics extends JComponent {
 	}
 
 	public void paintComponent(Graphics g) {
-		g.drawImage(tamagotchi, 20, 40, tamagotchi.getHeight(this), tamagotchi.getWidth(this), this);
+		g.drawImage(tamagotchi, 20, 120, tamagotchi.getHeight(this), tamagotchi.getWidth(this), this);
 	}
 }

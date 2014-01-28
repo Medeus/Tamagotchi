@@ -170,7 +170,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
         this.repaint();
     }
 
-    public void paint(Graphics g) {
-        g.drawImage(yoda, 20, 40, yoda.getHeight(this), yoda.getWidth(this), this);
-    }
+//    public void paint(Graphics g) {
+ //       g.drawImage(yoda, 20, 40, yoda.getHeight(this), yoda.getWidth(this), this);
+//    }
 }
