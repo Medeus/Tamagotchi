@@ -1,4 +1,6 @@
 import java.util.Date;
+import javax.swing.Timer;
+import java.awt.event.*;
 import javax.swing.event.*;
 
 public abstract class Tamagotchi{
@@ -12,8 +14,27 @@ public abstract class Tamagotchi{
     protected int energyIncrease = 2;
     protected int maxHunger = 20;         
     protected int maxEnergy = 40;         
-    protected Date date = new Date();
+    protected Date now;
     protected ChangeListener listener;
+
+    public void start() {
+        final Timer tamagotchiRunner = new Timer(1000, null);
+
+        tamagotchiRunner.setInitialDelay(0);
+        tamagotchiRunner.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (lifeState == false) {
+                    tamagotchiRunner.stop();
+                }
+                else {
+                    now = new Date();
+                    live();
+                }
+            }
+        });
+        
+        tamagotchiRunner.start();
+    }
 
     public void addChangeListener(ChangeListener listener) {
         this.listener = listener;
@@ -42,23 +63,28 @@ public abstract class Tamagotchi{
     public void live() {
         if (hunger <= 0) {
             lifeState = false;
+            return;
         }
-        if (isSleeping == false) {
-            if(date.getMinutes() == 00 || date.getMinutes() == 15 || date.getMinutes() == 30 || date.getMinutes() == 45) {
+        else if(energy <= 0) {
+            isSleeping = true;
+        }
+
+        if (now.getMinutes() == 00 || now.getMinutes() == 15 || now.getMinutes() == 30 || now.getMinutes() == 45) {
+            if (isSleeping == false){
                 hunger -= hungerDecrease;                      
                 energy -= energyDecrease;
-                change();                      
+                change();
             }
-        }
-        else if (isSleeping == true && energy >= maxEnergy) {
-            isSleeping = false;
-            energy = maxEnergy;
-            change();
-        }
-        else if(date.getMinutes() == 00 || date.getMinutes() == 15 || date.getMinutes() == 30 || date.getMinutes() == 45) {
-            hunger -= hungerDecrease;                      
-            energy += energyIncrease;
-            change();                      
+            else if (isSleeping == true && energy >= maxEnergy) {
+                isSleeping = false;
+                energy = maxEnergy;
+                change();
+            }
+            else if (isSleeping == true) {
+                hunger -= hungerDecrease; 
+                energy += energyIncrease;
+                change();
+            }
         }
     }
 

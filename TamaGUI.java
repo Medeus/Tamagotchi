@@ -39,6 +39,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
         }
 
         tamagotchi.addChangeListener(this);
+        tamagotchi.start();
 
         setLayout(new BorderLayout());
         statsNameLabelMaker("Hunger");
@@ -77,16 +78,6 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         add(panelButtonMaker(), BorderLayout.SOUTH);
         
-        // Not yet implemented. Will take care of the life of the tamagotchi.
-        
-        Timer live = new Timer(500, new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                tamagotchi.live();
-                
-            }
-        });
-        
-
         /*
         Timer imageUpdater = new Timer(500, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
