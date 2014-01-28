@@ -14,10 +14,21 @@ public abstract class Tamagotchi{
     protected int energyIncrease = 2;
     protected int maxHunger = 20;         
     protected int maxEnergy = 40;         
-    protected Date now;
+    protected Date now = new Date();
+    protected Date tempDate;
     protected ChangeListener listener;
 
     public void start() {
+        Timer dateUpdater = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                tempDate = now;
+                now = new Date();
+            }
+        });
+
+        dateUpdater.setInitialDelay(0);
+        dateUpdater.start();
+
         final Timer tamagotchiRunner = new Timer(1000, null);
 
         tamagotchiRunner.setInitialDelay(0);
@@ -26,8 +37,7 @@ public abstract class Tamagotchi{
                 if (lifeState == false) {
                     tamagotchiRunner.stop();
                 }
-                else {
-                    now = new Date();
+                else if(now.getMinutes() - tempDate.getMinutes() == 1) {
                     live();
                 }
             }
@@ -65,11 +75,11 @@ public abstract class Tamagotchi{
             lifeState = false;
             return;
         }
-        else if(energy <= 0) {
+        else if (energy <= 0) {
             isSleeping = true;
         }
 
-        if (now.getMinutes() == 00 || now.getMinutes() == 15 || now.getMinutes() == 30 || now.getMinutes() == 45) {
+        if (now.getMinutes() == 00 || now.getMinutes() == 15 || now.getMinutes() == 27 || now.getMinutes() == 28) {
             if (isSleeping == false){
                 hunger -= hungerDecrease;                      
                 energy -= energyDecrease;
