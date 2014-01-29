@@ -2,6 +2,11 @@ import java.util.Date;
 import javax.swing.Timer;
 import java.awt.event.*;
 import javax.swing.event.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.*;
+import javax.swing.*;
 
 public abstract class Tamagotchi{
     protected boolean lifeState = true;
@@ -17,6 +22,65 @@ public abstract class Tamagotchi{
     protected Date now = new Date();
     protected Date tempDate;
     protected ChangeListener listener;
+    protected BufferedImage firstPosition;
+    protected BufferedImage secondPosition;
+    protected BufferedImage asleep;
+    protected BufferedImage dead;
+    protected BufferedImage currentAvatar;
+    protected Timer avatarSwitcher;
+
+    public Tamagotchi(){
+        try {
+            firstPosition = ImageIO.read(new File("Resources/Images/YodaUp.jpg"));
+            secondPosition = ImageIO.read(new File("Resources/Images/YodaDown.jpg"));
+            asleep = ImageIO.read(new File("Resources/Images/YodaSleep.jpg"));
+            dead = ImageIO.read(new File("Resources/Images/YodaDead.jpg"));
+        } 
+        catch (IOException e) {
+            System.out.println("No file found");
+            System.out.println();
+            System.out.println();
+        }
+
+        currentAvatar = firstPosition;
+
+        avatarSwitcher = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (currentAvatar.getSource() != firstPosition.getSource()) {
+                    currentAvatar = firstPosition;
+                }
+                else if (currentAvatar.getSource() != secondPosition.getSource()) {
+                    currentAvatar = secondPosition;
+                } 
+            }
+        });
+
+        avatarSwitcher.start();
+    }    
+
+    public ImageIcon getAvatar(){
+        return new ImageIcon(currentAvatar);
+    }
+
+    public Boolean getLifeState() {
+        return lifeState;
+    }
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void addChangeListener(ChangeListener listener) {
+        this.listener = listener;
+    }
+
+    protected void change() {
+        listener.stateChanged(new ChangeEvent(this));
+    }
 
     public void start() {
         Timer dateUpdater = new Timer(1000, new ActionListener() {
@@ -46,26 +110,6 @@ public abstract class Tamagotchi{
         tamagotchiRunner.start();
     }
 
-    public void addChangeListener(ChangeListener listener) {
-        this.listener = listener;
-    }
-
-    protected void change() {
-        listener.stateChanged(new ChangeEvent(this));
-    }
-
-    public Boolean getLifeState() {
-        return lifeState;
-    }
-
-    public int getHunger() {
-        return hunger;
-    }
-
-    public int getEnergy() {
-        return energy;
-    }
-
     /*
     /If hunger is 0, alive is set to false
     /If minutes of the hour is 00, 15, 30 or 45 hunger and energy decreases.
@@ -73,10 +117,15 @@ public abstract class Tamagotchi{
     public void live() {
         if (hunger <= 0) {
             lifeState = false;
+            avatarSwitcher.stop();
+            currentAvatar = dead;
             return;
         }
         else if (energy <= 0) {
             isSleeping = true;
+            avatarSwitcher.stop();
+            currentAvatar = asleep;
+
         }
 
         if (now.getMinutes() == 00 || now.getMinutes() == 15 || now.getMinutes() == 30 || now.getMinutes() == 45) {
@@ -87,6 +136,7 @@ public abstract class Tamagotchi{
             }
             else if (isSleeping == true && energy >= maxEnergy) {
                 isSleeping = false;
+                avatarSwitcher.start();
                 energy = maxEnergy;
                 change();
             }
@@ -104,6 +154,8 @@ public abstract class Tamagotchi{
         }
         else {
             isSleeping = true;
+            avatarSwitcher.stop();
+            currentAvatar = asleep;
         }
     }
 

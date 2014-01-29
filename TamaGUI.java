@@ -78,19 +78,15 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         add(panelButtonMaker(), BorderLayout.SOUTH);
         
-        /*
-        Timer imageUpdater = new Timer(500, new ActionListener() {
+        
+        Timer imageUpdater = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if (tamagotchi.getLifeState() == true) {
-                    changeImage();
-                    worldPanel.repaint();
-                }
-                
+                imageLabel.setIcon(tamagotchi.getAvatar());
             }
         });
         
         imageUpdater.start();
-        */      
+              
     }
 
     //Creates a button and adds an actionlistener to it.
