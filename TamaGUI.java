@@ -14,6 +14,8 @@ public class TamaGUI extends JApplet implements ChangeListener{
     private LinkedList<JLabel> statsnamelist = new LinkedList<JLabel>();
     private LinkedList<JLabel> statsnumberlist = new LinkedList<JLabel>();
     private LinkedList<JLabel> statsBarList = new LinkedList<JLabel>();
+    private JLabel lifeState;
+    private JLabel sleepState;
     private Tamagotchi tamagotchi = new YodaGotchi();
 
     public void init() {
@@ -47,7 +49,17 @@ public class TamaGUI extends JApplet implements ChangeListener{
         statsNumberLabelMaker(tamagotchi.getEnergy());
         statsBoxesLabelMaker();
 
-        add(panelStatsMaker(), BorderLayout.NORTH);
+        JPanel states = new JPanel();
+        lifeState = new JLabel(tamagotchi.getLifeState());
+        sleepState = new JLabel(tamagotchi.getSleepState());
+        states.add(lifeState);
+        states.add(sleepState);
+
+        JPanel container = new JPanel(new GridLayout(2,0));
+        container.add(panelStatsMaker());
+        container.add(states);
+
+        add(container, BorderLayout.NORTH);
 
         final JPanel worldPanel = new JPanel();
         final JLabel imageLabel = new JLabel(tamagotchi.getAvatar());
@@ -137,5 +149,7 @@ public class TamaGUI extends JApplet implements ChangeListener{
     public void stateChanged(ChangeEvent e) {
         statsnumberlist.get(0).setText(Integer.toString(tamagotchi.getHunger()));
         statsnumberlist.get(1).setText(Integer.toString(tamagotchi.getEnergy()));
+        lifeState.setText(tamagotchi.getLifeState());
+        sleepState.setText(tamagotchi.getSleepState());
     }
 }

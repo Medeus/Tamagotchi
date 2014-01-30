@@ -9,16 +9,16 @@ import javax.imageio.*;
 import javax.swing.*;
 
 public abstract class Tamagotchi{
-    protected boolean lifeState = true;
-    protected boolean isSleeping = false;
+    protected LifeState lifeState = LifeState.ALIVE;
+    protected SleepState sleepState = SleepState.AWAKE;
     protected int hunger = 10;
     protected int energy = 10;
-    protected int hungerDecrease = 2;
-    protected int energyDecrease = 2;
+    protected int hungerDecrease = 4;
+    protected int energyDecrease = 4;
     protected int hungerIncrease = 2;
-    protected int energyIncrease = 2;
+    protected int energyIncrease = 1;
     protected int maxHunger = 20;         
-    protected int maxEnergy = 40;         
+    protected int maxEnergy = 20;         
     protected Date now = new Date();
     protected Date tempDate;
     protected ChangeListener listener;
@@ -61,8 +61,22 @@ public abstract class Tamagotchi{
         return new ImageIcon(currentAvatar);
     }
 
-    public Boolean getLifeState() {
-        return lifeState;
+    public String getLifeState() {
+        if (lifeState == LifeState.DEAD) {
+            return "Dead";
+        }
+        else {
+            return "Alive";
+        }
+    }
+
+    public String getSleepState() {
+        if (sleepState == SleepState.ASLEEP) {
+            return "Sleeping";
+        }
+        else {
+            return "Awake";
+        }
     }
 
     public int getHunger() {
@@ -97,7 +111,7 @@ public abstract class Tamagotchi{
         tamagotchiRunner.setInitialDelay(0);
         tamagotchiRunner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if (lifeState == false) {
+                if (lifeState == LifeState.DEAD) {
                     tamagotchiRunner.stop();
                 }
                 else if(now.getMinutes() - tempDate.getMinutes() == 1) {
@@ -115,31 +129,35 @@ public abstract class Tamagotchi{
     */
     public void live() {
         if (hunger <= 0) {
-            lifeState = false;
+            lifeState = LifeState.DEAD;
             avatarSwitcher.stop();
             currentAvatar = dead;
+            change();
             return;
         }
         else if (energy <= 0) {
-            isSleeping = true;
+            sleepState = SleepState.ASLEEP;
             avatarSwitcher.stop();
             currentAvatar = asleep;
+            change();
 
         }
 
-        if (now.getMinutes() == 00 || now.getMinutes() == 15 || now.getMinutes() == 30 || now.getMinutes() == 45) {
-            if (isSleeping == false){
+        if (now.getMinutes() == 00 || now.getMinutes() == 05 || now.getMinutes() == 10 || now.getMinutes() == 15 ||
+            now.getMinutes() == 20 || now.getMinutes() == 25 || now.getMinutes() == 30 || now.getMinutes() == 35 ||
+            now.getMinutes() == 40 || now.getMinutes() == 45 || now.getMinutes() == 50 || now.getMinutes() == 55) {
+            if (sleepState == SleepState.AWAKE){
                 hunger -= hungerDecrease;                      
                 energy -= energyDecrease;
                 change();
             }
-            else if (isSleeping == true && energy >= maxEnergy) {
-                isSleeping = false;
+            else if (sleepState == SleepState.ASLEEP && energy >= maxEnergy) {
+                sleepState = SleepState.AWAKE;
                 avatarSwitcher.start();
                 energy = maxEnergy;
                 change();
             }
-            else if (isSleeping == true) {
+            else if (sleepState == SleepState.ASLEEP) {
                 hunger -= hungerDecrease; 
                 energy += energyIncrease;
                 change();
@@ -152,9 +170,10 @@ public abstract class Tamagotchi{
             energy = maxEnergy;
         }
         else {
-            isSleeping = true;
+            sleepState = SleepState.ASLEEP;
             avatarSwitcher.stop();
             currentAvatar = asleep;
+            change();
         }
     }
 

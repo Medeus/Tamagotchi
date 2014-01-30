@@ -1,0 +1,1 @@
+public enum SleepState {AWAKE, ASLEEP}
