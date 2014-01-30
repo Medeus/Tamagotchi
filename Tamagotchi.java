@@ -29,13 +29,13 @@ public abstract class Tamagotchi{
     protected BufferedImage currentAvatar;
     protected Timer avatarSwitcher;
 
+    //@Para Images should be named after the formular: class name + state + .jpg . Where state also includes "Up" and "Down".
     public Tamagotchi(){
         try {
             firstPosition = ImageIO.read(new File("Resources/Images/" + getClass().getName() + "Up.jpg"));
             secondPosition = ImageIO.read(new File("Resources/Images/" +  getClass().getName() + "Down.jpg"));
             asleep = ImageIO.read(new File("Resources/Images/" + getClass().getName() + "Sleep.jpg"));
             dead = ImageIO.read(new File("Resources/Images/" + getClass().getName() + "Dead.jpg"));
-
         } 
         catch (IOException e) {
             System.out.println("Avatars not found");
