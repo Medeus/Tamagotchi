@@ -16,8 +16,6 @@ public class TamaGUI extends JApplet implements ChangeListener{
     private LinkedList<JLabel> statsBarList = new LinkedList<JLabel>();
     private Tamagotchi tamagotchi = new YodaGotchi();
 
-    private URL location = getClass().getResource("Resources/Images/YodaUp.jpg");
-
     public void init() {
         try {
             UIManager.setLookAndFeel(
@@ -51,13 +49,19 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         add(panelStatsMaker(), BorderLayout.NORTH);
 
-        ImageIcon tamagotchiAvatar = new ImageIcon(location);
-
         final JPanel worldPanel = new JPanel();
-        final JLabel imageLabel = new JLabel(tamagotchiAvatar);
+        final JLabel imageLabel = new JLabel(tamagotchi.getAvatar());
         worldPanel.add(imageLabel);
         add(worldPanel, BorderLayout.CENTER);
 
+        Timer imageUpdater = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                imageLabel.setIcon(tamagotchi.getAvatar());
+            }
+        });
+
+        imageUpdater.start();
+        
         buttonMaker("eat", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 tamagotchi.eat();
@@ -77,16 +81,6 @@ public class TamaGUI extends JApplet implements ChangeListener{
         });
 
         add(panelButtonMaker(), BorderLayout.SOUTH);
-        
-        
-        Timer imageUpdater = new Timer(1000, new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                imageLabel.setIcon(tamagotchi.getAvatar());
-            }
-        });
-        
-        imageUpdater.start();
-              
     }
 
     //Creates a button and adds an actionlistener to it.
@@ -143,11 +137,5 @@ public class TamaGUI extends JApplet implements ChangeListener{
     public void stateChanged(ChangeEvent e) {
         statsnumberlist.get(0).setText(Integer.toString(tamagotchi.getHunger()));
         statsnumberlist.get(1).setText(Integer.toString(tamagotchi.getEnergy()));
-    }
-
-    public void changeImage() {
-        if (location.equals(getClass().getResource("Resources/Figurer/YodaUp.jpg"))) {
-            location = getClass().getResource("Resources/Figurer/YodaDown.jpg");
-        }
     }
 }

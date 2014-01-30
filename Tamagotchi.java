@@ -31,15 +31,14 @@ public abstract class Tamagotchi{
 
     public Tamagotchi(){
         try {
-            firstPosition = ImageIO.read(new File("Resources/Images/YodaUp.jpg"));
-            secondPosition = ImageIO.read(new File("Resources/Images/YodaDown.jpg"));
-            asleep = ImageIO.read(new File("Resources/Images/YodaSleep.jpg"));
-            dead = ImageIO.read(new File("Resources/Images/YodaDead.jpg"));
+            firstPosition = ImageIO.read(new File("Resources/Images/" + getClass().getName() + "Up.jpg"));
+            secondPosition = ImageIO.read(new File("Resources/Images/" +  getClass().getName() + "Down.jpg"));
+            asleep = ImageIO.read(new File("Resources/Images/" + getClass().getName() + "Sleep.jpg"));
+            dead = ImageIO.read(new File("Resources/Images/" + getClass().getName() + "Dead.jpg"));
+
         } 
         catch (IOException e) {
-            System.out.println("No file found");
-            System.out.println();
-            System.out.println();
+            System.out.println("Avatars not found");
         }
 
         currentAvatar = firstPosition;
