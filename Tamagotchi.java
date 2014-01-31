@@ -17,7 +17,8 @@ public abstract class Tamagotchi{
     protected int energyDecrease = 4;
     protected int hungerIncrease = 2;
     protected int energyIncrease = 1;
-    protected int maxHunger = 20;         
+    protected int maxHunger = 20;
+    protected boolean isFull;   
     protected int maxEnergy = 20;         
     protected Date now = new Date();
     protected Date tempDate;
@@ -175,6 +176,10 @@ public abstract class Tamagotchi{
             currentAvatar = asleep;
             change();
         }
+    }
+
+    public boolean getStomachState() {
+        return isFull;
     }
 
     // Needs to call "change()" in it's implementation.

@@ -61,6 +61,12 @@ public class TamaGUI extends JApplet implements ChangeListener{
 
         add(container, BorderLayout.NORTH);
 
+        final JTextArea textArea = new JTextArea(8, 16);
+        JScrollPane textScrollPane = new JScrollPane(textArea);
+        textArea.setEditable(false);
+        textScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+
         final JPanel worldPanel = new JPanel();
         final JLabel imageLabel = new JLabel(tamagotchi.getAvatar());
         worldPanel.add(imageLabel);
@@ -77,6 +83,10 @@ public class TamaGUI extends JApplet implements ChangeListener{
         buttonMaker("eat", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 tamagotchi.eat();
+                if (tamagotchi.getStomachState() == true) {
+                    String currentText = textArea.getText();
+                    textArea.setText(currentText + "\n" + "I'm full!");
+                }
             }
         });
         
@@ -92,7 +102,13 @@ public class TamaGUI extends JApplet implements ChangeListener{
             }
         });
 
-        add(panelButtonMaker(), BorderLayout.SOUTH);
+        JPanel southPanel = new JPanel();
+        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
+        southPanel.add(textScrollPane);
+        southPanel.add(panelButtonMaker());
+
+
+        add(southPanel, BorderLayout.SOUTH);
     }
 
     //Creates a button and adds an actionlistener to it.
