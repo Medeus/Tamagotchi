@@ -49,15 +49,23 @@ public class TamaGUI extends JApplet implements ChangeListener{
         statsNumberLabelMaker(tamagotchi.getEnergy());
         statsBoxesLabelMaker();
 
-        JPanel states = new JPanel();
+        JLabel stateName1 = new JLabel("Life State: ");
         lifeState = new JLabel(tamagotchi.getLifeState());
-        sleepState = new JLabel(tamagotchi.getSleepState());
-        states.add(lifeState);
-        states.add(sleepState);
+        JPanel statePanel1 = new JPanel();
+        statePanel1.add(stateName1);
+		statePanel1.add(lifeState);
 
-        JPanel container = new JPanel(new GridLayout(2,0));
-        container.add(panelStatsMaker());
-        container.add(states);
+        JLabel stateName2 = new JLabel("Life State: ");
+        sleepState = new JLabel(tamagotchi.getSleepState());
+        JPanel statePanel2 = new JPanel();
+        statePanel2.add(stateName2);
+		statePanel2.add(sleepState);
+
+
+        final JPanel container = new JPanel(new GridLayout(2,0));
+        panelStatsMaker(container);
+        container.add(statePanel1);
+        container.add(statePanel2);
 
         add(container, BorderLayout.NORTH);
 
@@ -92,7 +100,14 @@ public class TamaGUI extends JApplet implements ChangeListener{
         
         buttonMaker("sleep", new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                tamagotchi.sleep();
+                if (tamagotchi.getSleepState().equals("Awake")){
+                	tamagotchi.sleep();
+                	buttonlist.get(1).setText("wake");
+                }
+                else if (tamagotchi.getSleepState().equals("Sleeping")){
+                	tamagotchi.wake();
+                	buttonlist.get(1).setText("sleep");
+                }
             }
         });
 
@@ -148,18 +163,14 @@ public class TamaGUI extends JApplet implements ChangeListener{
     }
 
     //Adds stats labels to panels and adds them to the applet.
-    private JPanel panelStatsMaker() {
-        JPanel mainpanel = new JPanel();
-
+    private void panelStatsMaker(JPanel south) {
         for (int i=0; i < statsnamelist.size(); i++) {
             JPanel panel = new JPanel();
             panel.add(statsnamelist.get(i));
             panel.add(statsnumberlist.get(i));
             panel.add(statsBarList.get(i));
-            mainpanel.add(panel);
+            south.add(panel);
         }
-
-        return mainpanel;
     }
 
     public void stateChanged(ChangeEvent e) {

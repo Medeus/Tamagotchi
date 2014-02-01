@@ -1,10 +1,11 @@
 public class SleepyGotchi extends Tamagotchi {
     public void eat() {
-        if (hunger >= maxHunger) {
-            hunger = maxHunger;  
+        if (hunger + hungerIncrease <= maxHunger){
+            hunger += hungerIncrease;
         }
         else {
-            hunger += 5;
+            hunger = maxHunger;
+            stomachState = true;  
         }
         change();
     }

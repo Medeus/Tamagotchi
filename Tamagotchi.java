@@ -11,6 +11,8 @@ import javax.swing.*;
 public abstract class Tamagotchi{
     protected LifeState lifeState = LifeState.ALIVE;
     protected SleepState sleepState = SleepState.AWAKE;
+    protected boolean stomachState;   
+
     protected int hunger = 10;
     protected int energy = 10;
     protected int hungerDecrease = 4;
@@ -18,11 +20,12 @@ public abstract class Tamagotchi{
     protected int hungerIncrease = 2;
     protected int energyIncrease = 1;
     protected int maxHunger = 20;
-    protected boolean isFull;   
-    protected int maxEnergy = 20;         
+    protected int maxEnergy = 20;  
+
     protected Date now = new Date();
     protected Date tempDate;
     protected ChangeListener listener;
+
     protected BufferedImage firstPosition;
     protected BufferedImage secondPosition;
     protected BufferedImage asleep;
@@ -78,6 +81,10 @@ public abstract class Tamagotchi{
         else {
             return "Awake";
         }
+    }
+
+    public boolean getStomachState() {
+        return stomachState;
     }
 
     public int getHunger() {
@@ -150,6 +157,7 @@ public abstract class Tamagotchi{
             if (sleepState == SleepState.AWAKE){
                 hunger -= hungerDecrease;                      
                 energy -= energyDecrease;
+                stomachState = false;
                 change();
             }
             else if (sleepState == SleepState.ASLEEP && energy >= maxEnergy) {
@@ -161,6 +169,7 @@ public abstract class Tamagotchi{
             else if (sleepState == SleepState.ASLEEP) {
                 hunger -= hungerDecrease; 
                 energy += energyIncrease;
+                stomachState = false;
                 change();
             }
         }
@@ -169,6 +178,7 @@ public abstract class Tamagotchi{
     public void sleep() {
         if (energy >= maxEnergy) {
             energy = maxEnergy;
+            wake();
         }
         else {
             sleepState = SleepState.ASLEEP;
@@ -178,8 +188,10 @@ public abstract class Tamagotchi{
         }
     }
 
-    public boolean getStomachState() {
-        return isFull;
+    public void wake() {
+        sleepState = SleepState.AWAKE;
+        avatarSwitcher.start();
+        change();
     }
 
     // Needs to call "change()" in it's implementation.

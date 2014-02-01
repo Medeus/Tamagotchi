@@ -1,12 +1,11 @@
 public class YodaGotchi extends Tamagotchi {
     public void eat() {
-        if (hunger >= maxHunger) {
-            hunger = maxHunger;
-            isFull = true;  
+        if (hunger + hungerIncrease <= maxHunger){
+            hunger += hungerIncrease;
         }
         else {
-            hunger += 5;
-            isFull = false;
+            hunger = maxHunger;
+            stomachState = true;  
         }
         change();
     }
